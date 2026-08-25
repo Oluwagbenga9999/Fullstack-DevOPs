@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A task board for practicing reliable delivery.">
+  <title>ShipIt Board</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="/"><span class="brand-mark">S</span><span>ShipIt<span class="brand-muted">/board</span></span></a>
+      <div class="status"><span class="status-dot"></span><span id="service-status">API checking</span></div>
+    </header>
+
+    <section class="intro">
+      <p class="eyebrow">Delivery practice lab</p>
+      <h1>Make the next<br><em>deployment</em> count.</h1>
+      <p class="lede">A tiny task board with a real API behind it. Add work, ship it, and watch the system stay healthy.</p>
+    </section>
+
+    <section class="board" aria-labelledby="board-heading">
+      <div class="board-header">
+        <div><p class="eyebrow">Current run</p><h2 id="board-heading">Release checklist</h2></div>
+        <span class="count" id="task-count">0 tasks</span>
+      </div>
+      <form class="task-form" id="task-form">
+        <label class="sr-only" for="task-title">New task</label>
+        <input id="task-title" name="title" placeholder="What needs shipping?" maxlength="120" required>
+        <button type="submit">Add task <span>+</span></button>
+      </form>
+      <div class="task-list" id="task-list" aria-live="polite"></div>
+    </section>
+
+    <footer><span>STATE: IN-MEMORY</span><span>PORT: <span id="port-label">3000</span></span><span>BUILD: PRACTICE-01</span></footer>
+  </main>
+</body>
+</html>
