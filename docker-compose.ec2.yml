@@ -1,8 +1,18 @@
 services:
-  app:
+  backend:
+    image: ${IMAGE}
+    ports:
+      - "${API_PORT:-3001}:3001"
+    environment:
+      API_PORT: 3001
+    command: node server.js
+    restart: unless-stopped
+  frontend:
     image: ${IMAGE}
     ports:
       - "${PORT:-3000}:3000"
     environment:
-      PORT: 3000
+      FRONTEND_PORT: 3000
+      BACKEND_URL: http://backend:3001
+    command: node frontend-server.js
     restart: unless-stopped

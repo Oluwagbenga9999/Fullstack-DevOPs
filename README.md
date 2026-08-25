@@ -1,6 +1,6 @@
 # ShipIt Board
 
-A small full-stack task board for practicing DevOps fundamentals. The Node.js/Express server serves a plain browser frontend and a REST API. Data is intentionally in memory, so restarting the app resets the board.
+A small full-stack task board for practicing DevOps fundamentals. The Node.js API and plain browser frontend run as separate services: the API listens on `3001`, while the frontend listens on `3000` and proxies API requests to the backend. Data is intentionally in memory, so restarting the backend resets the board.
 
 ## Run locally
 
@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. Use `npm start` for a production-style local run.
+Run the backend in one terminal with `npm run dev:api`, then the frontend in another with `npm run dev`. Open http://localhost:3000. The API is available directly at http://localhost:3001.
 
 ## Run with Docker
 
@@ -17,13 +17,13 @@ Open http://localhost:3000. Use `npm start` for a production-style local run.
 docker compose up --build
 ```
 
-The container runs as a non-root user and exposes a health check at `/health`. Set `PORT` in `.env` to change the host port.
+Compose runs separate `backend` and `frontend` containers. The frontend is on port `3000`, the API is on port `3001`, and the backend health check is available at http://localhost:3001/health. Set `PORT` or `API_PORT` in `.env` to change the host ports.
 
 ## Deploy to AWS EC2
 
 The `main` branch deploys automatically through GitHub Actions:
 
-1. Create an Ubuntu EC2 instance with Docker Engine and the Docker Compose plugin installed. Allow inbound TCP `80` (or `3000` while learning) in its security group.
+1. Create an Ubuntu EC2 instance with Docker Engine and the Docker Compose plugin installed. Allow inbound TCP `80` (or `3000` while learning) in its security group. Keep port `3001` private unless you specifically need direct API access.
 2. If the GitHub Container Registry package is private, create a GitHub token with `read:packages` and log in on the instance:
 
 	```bash

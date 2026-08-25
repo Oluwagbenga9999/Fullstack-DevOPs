@@ -1,9 +1,8 @@
 const express = require('express');
-const path = require('node:path');
 const crypto = require('node:crypto');
 
 const app = express();
-const port = Number(process.env.PORT) || 3000;
+const port = Number(process.env.API_PORT) || 3001;
 const tasks = [
   { id: crypto.randomUUID(), title: 'Containerize the API', done: true },
   { id: crypto.randomUUID(), title: 'Add a CI pipeline', done: false },
@@ -11,7 +10,6 @@ const tasks = [
 ];
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/health', (request, response) => {
   response.json({ status: 'ok', service: 'shipit-board', timestamp: new Date().toISOString() });

@@ -3,10 +3,8 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-: "${IMAGE:?IMAGE must be set in .env}"
-
-docker compose -f docker-compose.ec2.yml pull app
-docker compose -f docker-compose.ec2.yml up -d app
+docker compose -f docker-compose.ec2.yml pull
+docker compose -f docker-compose.ec2.yml up -d
 docker image prune -f
 
-echo "Deployment complete: ${IMAGE}"
+echo "Deployment complete"
